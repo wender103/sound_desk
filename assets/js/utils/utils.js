@@ -52,7 +52,23 @@ function Gerar_Senha() {
 
 //? Gerar id
 function Gerar_ID() {
-  return 'xxxxxx'.replace(/x/g, () => {
-    return Math.floor(Math.random() * 36).toString(36)
-  })
+  let id = ''
+  for (let i = 0; i < 36; i++) {
+    id += Math.floor(Math.random() * 36).toString(36)
+  }
+  return id
+}
+
+//? Pegar Nome Dispositivo
+function Pegar_Nome_Dispositivo() {
+  const agente = navigator.userAgent
+
+  if (/android/i.test(agente)) return "Android"
+  if (/iPhone/i.test(agente)) return "iPhone"
+  if (/iPad/i.test(agente)) return "iPad"
+  if (/Mac/i.test(agente)) return "Mac"
+  if (/Windows/i.test(agente)) return "Windows"
+  if (/Linux/i.test(agente)) return "Linux"
+
+  return "Dispositivo Desconhecido ❓"
 }

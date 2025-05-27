@@ -77,6 +77,7 @@ async function Carregar_Infos_User() {
             Date: new Date().getTime(),
             Synchronized: false,
             PassWord,
+            Device_Name: Pegar_Nome_Dispositivo()
         })
 
         const agora = Date.now()
