@@ -214,9 +214,7 @@ function Criar_Html_Sons(audioItems) {
         // Adiciona ao grid
         deckGrid.appendChild(deckKey);
 
-        deckKey.addEventListener('click', () => {
-            console.log('aaaaaaa');
-            
+        deckKey.addEventListener('click', () => {            
             Tocar_Audio_No_PC(item, "play_start")
         })
     });
@@ -226,12 +224,21 @@ function Marcar_Audio_Na_Tela(audioId) {
     // Remove a classe 'active' de todos os deck-keys
     document.querySelectorAll('.deck-key').forEach(deckKey => {
         deckKey.classList.remove('active');
+        deckKey.classList.remove('playing');
     });
 
     // Encontra o deck-key com o data-sound-id correspondente e adiciona a classe 'active'
     const activeDeckKey = document.querySelector(`.deck-key[data-sound-id="${audioId}"]`);
     if (activeDeckKey) {
         activeDeckKey.classList.add('active');
+        activeDeckKey.classList.add('playing');
+    
+        for (let c = 0; c < User.Favorites_List.length; c++) {
+            if(User.Favorites_List[c].ID == audioId){
+                activeDeckKey.querySelector('.key-active-indicator').style.background = User.Favorites_List[c].Class.Color
+                break
+            }
+        }
 
         // Rolagem suave para o elemento (opcional)
         activeDeckKey.scrollIntoView({
