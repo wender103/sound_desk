@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>apenas um teste</title>
+</head>
+<body>
+    <script>
+        async function pesquisar_myinstants(_pesquisa = '', page = 1) {
+  let url = ''
+
+  if (_pesquisa.trim() === '') {
+    url = `https://www.myinstants.com/en/index/br/?page=${page}`
+  } else {
+    url = `https://www.myinstants.com/en/search/?name=${encodeURIComponent(_pesquisa)}&page=${page}`
+  }
+
+  try {
+    const response = await fetch(url)
+    const html = await response.text()
+
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(html, 'text/html')
+
+    const elementos = doc.querySelectorAll('.instant')
+    const sounds = []
+
+    elementos.forEach(element => {
+      const link = element.querySelector('.instant-link')
+      const playBtn = element.querySelector('.small-button')
+      const favBtn = element.querySelector('.instant-action-button[title*="favorites"]')
+      const corBtn = element.querySelector('.circle.small-button-background')
+
+      const title = link?.textContent.trim() || ''
+      const url = 'https://www.myinstants.com' + (link?.getAttribute('href') || '')
+      const mp3Match = playBtn?.getAttribute('onclick')?.match(/play\('([^']+)'/)
+      const mp3 = mp3Match ? 'https://www.myinstants.com' + mp3Match[1] : ''
+      const idMatch = favBtn?.getAttribute('onclick')?.match(/favorite\('(\d+)'\)/)
+      const id = idMatch ? idMatch[1] : ''
+      const buttonColor = corBtn?.style?.backgroundColor || '#FF0000'
+
+      sounds.push({
+        id,
+        title,
+        mp3,
+        url,
+        buttonColor
+      })
+    })
+
+    const hasNextPage = elementos.length > 0
+
+    return { sounds, hasNextPage }
+
+  } catch (err) {
+    console.error('Erro ao buscar:', err)
+    return { sounds: [], hasNextPage: false }
+  }
+}
+    </script>
+</body>
+</html>
