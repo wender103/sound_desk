@@ -619,5 +619,4 @@ class ThemeManager {
     }
 }
 
-// Inicializa o gerenciador de temas
 const temaManager = new ThemeManager()
