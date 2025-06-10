@@ -1,0 +1,719 @@
+@charset "UTF-8";
+@import url("../geral/geral.css");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  list-style: none;
+}
+
+body div#theme-selector-container {
+  display: none;
+}
+body button#theme-button {
+  display: none;
+}
+body div#container_main_app {
+  display: none;
+}
+body div#container_main_app header {
+  width: 100%;
+}
+body div#container_main_app header div#container_header_logo {
+  background-color: var(--primary-color);
+  color: var(--text_oposto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+}
+body div#container_main_app header div#container_header_logo h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+body div#container_main_app header div#container_header_logo i {
+  font-size: 24px;
+}
+body div#container_main_app header div#container_header_btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+  background-color: var(--hover-bg);
+}
+body div#container_main_app header div#container_header_btns div#container_header_pesquisa {
+  width: calc(100% - 46px);
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius_4);
+  padding: 0 0 0 15px;
+  background-color: var(--background);
+}
+body div#container_main_app header div#container_header_btns div#container_header_pesquisa i {
+  color: var(--text-secondary);
+}
+body div#container_main_app header div#container_header_btns div#container_header_pesquisa input {
+  width: 100%;
+  padding: 10px 16px 10px 15px;
+  background-color: var(--card-color);
+  color: var(--text-color);
+  font-size: 14px;
+  border: none;
+}
+body div#container_main_app header div#container_header_btns div#container_header_btns_layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+body div#container_main_app header div#container_header_btns div#container_header_btns_layout button {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius_4);
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-color);
+}
+body div#container_main_app header div#container_header_btns div#container_header_btns_layout button.active {
+  background-color: var(--primary-color);
+  color: var(--text_oposto);
+  border-color: var(--primary-color);
+}
+body div#container_main_app header div#container_header_btns div#container_header_btns_layout button i {
+  font-weight: 900;
+}
+body div#container_main_app nav {
+  width: 100%;
+  padding: 10px 10px 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--hover-bg);
+}
+body div#container_main_app nav ul {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+body div#container_main_app nav ul li {
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding-bottom: 10px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+body div#container_main_app nav ul li.active {
+  color: var(--primary-color);
+  border-bottom: 3px solid var(--primary-color);
+}
+body div#container_main_app nav select {
+  padding: 4px 10px;
+  margin-bottom: 4px;
+  border-radius: var(--radius_4);
+  border: 1px solid var(--border-color);
+  background: var(--player-bg);
+  color: var(--text-color);
+  font-size: 13px;
+  outline: none;
+}
+body div#container_main_app main {
+  width: 100%;
+  height: calc(100dvh - 143px);
+  overflow: hidden;
+}
+body div#container_main_app main section.paginas {
+  height: 100%;
+  background-color: var(--background);
+  padding: 10px;
+  display: none;
+  overflow: auto;
+}
+body div#container_main_app main section.paginas.active {
+  display: block;
+}
+body div#container_main_app main section.paginas article {
+  padding-bottom: 100px;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card {
+  background-color: var(--player-bg);
+  border-radius: var(--radius_4);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  padding: 8px;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-top .audio-shortcut {
+  background-color: var(--primary-color);
+  color: var(--text_oposto);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-top .favorite-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-top .favorite-btn.favorited, body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-top .favorite-btn:hover {
+  color: var(--danger-color);
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-content .audio-title-wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-content .audio-title-wrapper .audio-title {
+  font-size: 13px;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.compact-view .audio-card-content .audio-title-wrapper .audio-category {
+  font-size: 10px;
+  font-weight: 500;
+  display: block;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: var(--radius_4);
+  background-color: var(--player-bg);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card:hover {
+  background-color: var(--hover-bg);
+  cursor: pointer;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  margin-right: 12px;
+  order: 1;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-top .audio-shortcut {
+  background-color: var(--primary-color);
+  color: var(--text_oposto);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-top .favorite-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px;
+  position: absolute;
+  right: 20px;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-top .favorite-btn:hover {
+  color: var(--danger-color);
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  order: 2;
+  min-width: 0;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-content .audio-title-wrapper {
+  flex-grow: 1;
+  min-width: 0;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-content .audio-title-wrapper .audio-title {
+  font-size: 13px;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+body div#container_main_app main section.paginas#pagina_favoritos .audio-grid.list-view .audio-card .audio-card-content .audio-title-wrapper .audio-category {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 11px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca {
+  /* Ajustes específicos para a view de lista */
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.compact-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.list-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card {
+  background-color: var(--player-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top {
+  padding: 12px 12px 8px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top .audio-title {
+  font-size: 10px;
+  color: var(--text-color);
+  margin: 0;
+  font-weight: 600;
+  padding-right: 24px;
+  line-height: 1.3;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top .favorite-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: all 0.2s ease;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top .favorite-btn.favorited, body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top .favorite-btn:hover {
+  color: var(--danger-color);
+  transform: scale(1.1);
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top .favorite-btn i {
+  display: block;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top .volume-warning {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--danger-color);
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: none;
+  /* Por padrão escondido */
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-top .volume-warning.visible {
+  display: inline-block;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-content {
+  padding: 0 12px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-content .audio-duration {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-content .audio-duration i {
+  font-size: 11px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-content .play-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-content .play-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid .audio-card-content .play-btn i {
+  font-size: 10px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.list-view .audio-card {
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.list-view .audio-card-top {
+  flex: 1;
+  padding: 12px;
+  align-items: center;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.list-view .audio-card-top .audio-title {
+  padding-right: 0;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.list-view .audio-card-top .favorite-btn {
+  position: relative;
+  top: auto;
+  right: auto;
+  margin-left: 8px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.list-view .audio-card-top .volume-warning {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  margin-left: 8px;
+}
+body div#container_main_app main section.paginas#pagina_biblioteca .audio-grid.list-view .audio-card-content {
+  padding: 12px;
+  border-left: 1px solid var(--border-color);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  justify-content: center;
+}
+body div#container_main_app .audio-player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--player-bg);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+body div#container_main_app .audio-player-bar.active {
+  transform: translateY(0);
+}
+body div#container_main_app .audio-player-bar .progress-bar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--border-color);
+  cursor: pointer;
+}
+body div#container_main_app .audio-player-bar .progress-bar-container .progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--primary-color);
+  transition: width 0.1s linear;
+}
+body div#container_main_app .audio-player-bar .player-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+body div#container_main_app .audio-player-bar .player-content .player-info {
+  flex: 1;
+  min-width: 0;
+}
+body div#container_main_app .audio-player-bar .player-content .player-info .now-playing-title {
+  font-size: 14px;
+  color: var(--text-color);
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body div#container_main_app .audio-player-bar .player-content .player-info .audio-meta {
+  display: flex;
+  gap: 8px;
+}
+body div#container_main_app .audio-player-bar .player-content .player-info .audio-meta .audio-category,
+body div#container_main_app .audio-player-bar .player-content .player-info .audio-meta .audio-shortcut {
+  font-size: 11px;
+  color: var(--text-secondary);
+  background-color: var(--hover-bg);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+body div#container_main_app .audio-player-bar .player-content .player-info .audio-meta .audio-shortcut {
+  background-color: var(--primary-light);
+  color: var(--text_oposto);
+}
+body div#container_main_app .audio-player-bar .player-content .player-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+body div#container_main_app .audio-player-bar .player-content .player-controls .player-btn {
+  background-color: var(--primary-color);
+  color: var(--text_oposto);
+  border: none;
+  border-radius: var(--radius_4);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+body div#container_main_app .audio-player-bar .player-content .player-controls .player-btn:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.05);
+}
+body div#container_main_app .audio-player-bar .player-content .player-controls .player-btn i {
+  font-size: 14px;
+}
+body div#container_main_app .audio-player-bar .player-content .player-controls .player-btn.play-btn {
+  width: 42px;
+  height: 42px;
+}
+body div#container_main_app .audio-player-bar .player-content .player-controls .player-btn.play-btn i {
+  font-size: 16px;
+}
+
+div.sombra_popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3;
+  display: none;
+}
+div.sombra_popup.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sombra-popup);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+div.sombra_popup div.popup {
+  background-color: var(--background);
+  padding: 20px;
+  border-radius: var(--radius_4);
+  width: 95%;
+  max-width: 500px;
+}
+div.sombra_popup div.popup h3 {
+  color: var(--text-color);
+}
+div.sombra_popup div.popup div.header_popup {
+  padding: 0 0 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.sombra_popup div.popup div.header_popup button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+div.sombra_popup .conteudo_verificacao_popup {
+  padding: 20px 0;
+  text-align: center;
+}
+div.sombra_popup .conteudo_verificacao_popup .instrucao {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+div.sombra_popup .conteudo_verificacao_popup .digitos-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+div.sombra_popup .conteudo_verificacao_popup .digitos-container .digito-input {
+  width: 48px;
+  height: 64px;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary-darker);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius_4);
+  transition: var(--transition);
+  caret-color: transparent;
+}
+div.sombra_popup .conteudo_verificacao_popup .digitos-container .digito-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+}
+div.sombra_popup .conteudo_verificacao_popup .digitos-container .digito-input.filled {
+  border-color: var(--primary-light);
+  background-color: rgba(108, 92, 231, 0.05);
+}
+div.sombra_popup .conteudo_verificacao_popup .digitos-container .digito-input.error {
+  border-color: var(--danger-color);
+  animation: shake 0.5s;
+}
+div.sombra_popup .conteudo_verificacao_popup .mensagem_erro {
+  color: var(--danger-color);
+  font-size: 14px;
+  min-height: 20px;
+  margin-bottom: 20px;
+  visibility: hidden;
+}
+div.sombra_popup .conteudo_verificacao_popup .botao_verificar {
+  background: var(--primary-color);
+  color: var(--text_oposto);
+  border: none;
+  padding: 14px 28px;
+  border-radius: var(--radius_4);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+  max-width: 240px;
+  font-size: 16px;
+}
+div.sombra_popup .conteudo_verificacao_popup .botao_verificar:hover {
+  background: var(--primary-dark);
+}
+div.sombra_popup .conteudo_verificacao_popup .botao_verificar:disabled {
+  background: var(--text-tertiary);
+  cursor: not-allowed;
+}
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-4px);
+  }
+  40%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--sombra-popup);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  transition: var(--transition);
+  opacity: 1;
+  visibility: visible;
+}
+.loading-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.loading-spinner {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.spinner-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  animation: pulse 1.2s infinite ease-in-out;
+}
+.spinner-circle:nth-child(1) {
+  animation-delay: 0s;
+}
+.spinner-circle:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.spinner-circle:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.spinner-circle:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.loading-text {
+  color: var(--text_oposto);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}/*# sourceMappingURL=sound_desk.css.map */
