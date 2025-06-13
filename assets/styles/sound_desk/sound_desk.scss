@@ -19,7 +19,7 @@ body {
 
   div#container_main_app {
     display: none;
-    
+
     header {
       width: 100%;
 
@@ -220,7 +220,7 @@ body {
                   overflow: hidden;
 
                   .audio-title {
-                    font-size: 13px;
+                    font-size: 12px;
                     color: var(--text-color);
                     white-space: nowrap;
                     overflow: hidden;
@@ -233,6 +233,12 @@ body {
                     font-size: 10px;
                     font-weight: 500;
                     display: block;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    line-height: 1.4;
+                    flex-shrink: 0;
                   }
                 }
               }
@@ -302,7 +308,7 @@ body {
                   min-width: 0; // Permite que o texto faça overflow corretamente
 
                   .audio-title {
-                    font-size: 13px;
+                    font-size: 12px;
                     color: var(--text-color);
                     white-space: nowrap;
                     overflow: hidden;
@@ -360,12 +366,19 @@ body {
                 align-items: flex-start;
 
                 .audio-title {
+                  max-width: 85%;
                   font-size: 10px;
                   color: var(--text-color);
                   margin: 0;
                   font-weight: 600;
                   padding-right: 24px;
                   line-height: 1.3;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  line-height: 1.4;
+
                 }
 
                 .favorite-btn {
@@ -547,6 +560,7 @@ body {
         .player-info {
           flex: 1;
           min-width: 0;
+          max-width: 170px;
 
           .now-playing-title {
             font-size: 14px;
@@ -563,11 +577,17 @@ body {
 
             .audio-category,
             .audio-shortcut {
+              max-width: 100px;
               font-size: 11px;
               color: var(--text-secondary);
               background-color: var(--hover-bg);
               padding: 2px 6px;
               border-radius: 2px;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              line-height: 1.4;
             }
 
             .audio-shortcut {
@@ -617,7 +637,7 @@ body {
       }
     }
   }
-  
+
 }
 
 //? Popups devices
@@ -810,15 +830,15 @@ div.sombra_popup {
   &:nth-child(1) {
     animation-delay: 0s;
   }
-  
+
   &:nth-child(2) {
     animation-delay: 0.2s;
   }
-  
+
   &:nth-child(3) {
     animation-delay: 0.4s;
   }
-  
+
   &:nth-child(4) {
     animation-delay: 0.6s;
   }
@@ -831,10 +851,13 @@ div.sombra_popup {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(0.8);
     opacity: 0.5;
   }
+
   50% {
     transform: scale(1.2);
     opacity: 1;

@@ -3,6 +3,7 @@ let lista_favoritos = []
 let last_pesquisa = { query: '', page: 1 }
 
 let id_device = localStorage.getItem('id_device')
+let thema_local = localStorage.getItem('selectedTheme')
 
 function conectar_ao_sound_desk() {
   const url = new URL(window.location.href)
@@ -35,12 +36,15 @@ function conectar_ao_sound_desk() {
 
           if (device_conectado) {
             hideLoading()
-            criar_audios_biblioteca(sound_desk.search.results.data)
             construir_cards_audio_favoritos(sound_desk.favorite_list)
+            criar_audios_biblioteca(sound_desk.search.results.data)
 
             if (sound_desk.command == 'results search') {
               criar_audios_biblioteca(sound_desk.search.results.data)
             } else if (sound_desk.command == 'play_iniciado') {
+              if (sound_desk.audio.mp3 != fakeAudio.src) {
+                iniciar_play(sound_desk.audio, 'não salvar')
+              }
               marcar_audio_play_pause('play')
             } else if (sound_desk.command == 'pause_iniciado') {
               marcar_audio_play_pause('pause')
@@ -48,11 +52,16 @@ function conectar_ao_sound_desk() {
               temaManager.applyTheme(sound_desk.theme)
               location.reload()
             }
+
+            if (thema_local && sound_desk.theme != thema_local) {
+              temaManager.applyTheme(sound_desk.theme)
+              location.reload()
+            }
           } else {
             console.log('Não sincronizado')
             verificacao_popup.abrir_popup(esse_device.password, () => {
               for (let c = 0; c < sound_desk.synchronized_devices.length; c++) {
-                if(sound_desk.synchronized_devices[c].id == id_device) {
+                if (sound_desk.synchronized_devices[c].id == id_device) {
                   sound_desk.synchronized_devices[c].synchronized = true
                   break
                 }
@@ -251,6 +260,10 @@ function trocar_pagina(_nome_pagina) {
     select_categorias.style.display = 'block'
   } else {
     select_categorias.style.display = 'none'
+
+    if (sound_desk.search.results.data.length <= 0) {
+      pesquisar_myinstants('')
+    }
   }
 }
 
@@ -380,28 +393,8 @@ function is_favorite(id) {
 }
 
 function add_favorite(_audio) {
-  let colocar_classe = '#6c5ce7'
-  for (let c = 0; c < lista_favoritos.length; c++) {
-    if (lista_favoritos[c].class.title == 'Memes') {
-      colocar_classe = lista_favoritos[c].class.color
-      break
-    }
-  }
-
-  const new_audio = {
-    id: _audio.id,
-    title: _audio.title,
-    mp3: _audio.mp3,
-    class: { color: colocar_classe, title: 'Memes' },
-    shortcut: { key: '' }
-  }
-
-  lista_favoritos.push(new_audio)
-  lista_favoritos = atribuir_atalhos(lista_favoritos, false, false)
-  construir_cards_audio_favoritos(lista_favoritos)
-
   sound_desk.command = 'add_favorite'
-  sound_desk.favorite_list = lista_favoritos
+  sound_desk.audio_add = _audio
   db.collection('sound_desks').doc(sound_desk.user_id).update(sound_desk)
 }
 
@@ -419,7 +412,6 @@ function remove_favorite(id) {
 
 // ? --------------------------------------------- Player bar ------------------------
 const container_play_bar = document.getElementById('container_play_bar')
-const audio_player = document.getElementById('audio_player')
 const btn_play_pause_player_bar = document.getElementById('btn_play_pause_player_bar')
 const btn_next_player_bar = document.getElementById('btn_next_player_bar')
 const btn_prev_player_bar = document.getElementById('btn_prev_player_bar')
@@ -427,9 +419,8 @@ const btn_prev_player_bar = document.getElementById('btn_prev_player_bar')
 let audio_tocando_agora = null
 function iniciar_play(_audio, _command = '') {
   audio_tocando_agora = _audio
-  audio_player.src = _audio.mp3
-  audio_player.volume = 0
-  audio_player.muted = true
+  fakeAudio.src = _audio.mp3
+  fakeAudio.duration = _audio.tempo_total
 
   play_pause_audio(`reset, ${_command}`)
 
@@ -443,13 +434,19 @@ function iniciar_play(_audio, _command = '') {
   document.getElementById('shortcut_audio_player_bar').style.color = get_contrast_color(_audio.class.color)
 }
 
-audio_player.addEventListener('timeupdate', atualizar_progresso)
+fakeAudio.on('timeupdate', () => {
+  atualizar_progresso()
+})
+
+fakeAudio.on('ended', () => {
+  marcar_audio_play_pause('pause')
+})
 
 function atualizar_progresso() {
   const progressBar = document.getElementById('progressBar')
 
   try {
-    const progress = (audio_player.currentTime / audio_player.duration) * 100
+    const progress = (fakeAudio.currentTime / fakeAudio.duration) * 100
     progressBar.style.width = `${progress}%`
 
   } catch { }
@@ -458,7 +455,7 @@ function atualizar_progresso() {
 function play_pause_audio(_command = '') {
   console.log(_command)
 
-  if (audio_player.paused || _command.includes('reset')) {
+  if (fakeAudio.paused || _command.includes('reset')) {
     if (_command.includes('reset')) {
       sound_desk.command = 'play_start'
     } else {
@@ -477,10 +474,10 @@ function play_pause_audio(_command = '') {
 
 function marcar_audio_play_pause(_command = '') {
   if (_command == 'play') {
-    audio_player.play()
+    fakeAudio.play()
     btn_play_pause_player_bar.innerHTML = '<i class="fa-solid fa-pause"></i>'
   } else {
-    audio_player.pause()
+    fakeAudio.pause()
     btn_play_pause_player_bar.innerHTML = '<i class="fa-solid fa-play"></i>'
   }
 }
@@ -657,7 +654,7 @@ function hideLoading() {
   if (loadingOverlay) {
     loadingOverlay.classList.add('hidden');
     document.getElementById('container_main_app').style.display = 'block'
-    
+
     // Remove from DOM after animation completes
     setTimeout(() => {
       loadingOverlay.remove();

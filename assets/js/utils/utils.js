@@ -1,28 +1,3 @@
-function audio_duration(audio_url, format = false) {
-  return new Promise((resolve, reject) => {
-    const audio = new Audio(audio_url)
-
-    // ? Espera carregar os metadados pra pegar a duração
-    audio.onloadedmetadata = () => {
-      const duracao = audio.duration
-
-      if (format) {
-        const minutos = Math.floor(duracao / 60)
-        const segundos = Math.floor(duracao % 60)
-        const tempo_formatado = `${minutos}:${segundos.toString().padStart(2, '0')}`
-        resolve(tempo_formatado)
-      } else {
-        resolve(duracao)
-      }
-    }
-
-    // ! Erro ao carregar o áudio
-    audio.onerror = () => {
-      reject(new Error('Erro ao carregar o áudio 😢'))
-    }
-  })
-}
-
 function formatar_texto(_texto) {
   // * Normaliza acentos e coloca em minúsculo
   const texto_normalizado = _texto
